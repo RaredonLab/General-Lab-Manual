@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Joining the Lab &mdash; Raredon Lab General Manual</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --sidebar-w: 256px;
+      --header-h: 54px;
+      --bg: #FFFFFF;
+      --sidebar-bg: #F6F5F1;
+      --border: #E3E1DC;
+      --text-p: #1A1917;
+      --text-s: #5C5A56;
+      --text-t: #9C9A96;
+      --accent: #1D4ED8;
+      --accent-lt: #EFF6FF;
+      --accent-bd: #BFDBFE;
+      --code-bg: #F6F5F1;
+      --code-bd: #D8D6D0;
+      --note-bg: #F0FDF4;
+      --note-bd: #16A34A;
+      --warn-bg: #FFFBEB;
+      --warn-bd: #D97706;
+      --rule-bg: #FFF1F2;
+      --rule-bd: #E11D48;
+      --font: 'IBM Plex Sans', sans-serif;
+      --font-serif: 'IBM Plex Serif', serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-p);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* ── Header ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      background: #141210;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      z-index: 100;
+      gap: 16px;
+    }
+    header .lab-name {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: #E8E6E0;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+    header .manual-name {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-t);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border: 1px solid #333;
+      border-radius: 3px;
+    }
+    header .sep { color: #444; font-size: 18px; line-height: 1; }
+
+    /* ── Sidebar ── */
+    nav.sidebar {
+      position: fixed;
+      top: var(--header-h);
+      left: 0;
+      width: var(--sidebar-w);
+      height: calc(100vh - var(--header-h));
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      padding: 28px 0 40px;
+      z-index: 90;
+    }
+    .nav-section-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-t);
+      padding: 0 20px 8px;
+      margin-top: 20px;
+    }
+    .nav-section-label:first-child { margin-top: 0; }
+    nav.sidebar a {
+      display: block;
+      padding: 6px 20px;
+      font-size: 13px;
+      color: var(--text-s);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+    nav.sidebar a:hover {
+      color: var(--text-p);
+      background: rgba(0,0,0,0.04);
+    }
+    nav.sidebar a.active {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: var(--accent-lt);
+      font-weight: 500;
+    }
+    nav.sidebar a.current-doc {
+      color: var(--text-p);
+      font-weight: 600;
+      border-left-color: var(--border);
+    }
+
+    /* ── Content ── */
+    main {
+      margin-left: var(--sidebar-w);
+      max-width: calc(var(--sidebar-w) + 800px);
+      padding: 52px 60px 100px;
+      padding-top: calc(var(--header-h) + 52px);
+    }
+
+    /* ── Page header ── */
+    .page-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-t);
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--text-p);
+      margin-bottom: 10px;
+    }
+    .page-sub {
+      font-size: 16px;
+      color: var(--text-s);
+      margin-bottom: 40px;
+      max-width: 620px;
+      line-height: 1.6;
+    }
+    .page-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+
+    /* ── Sections ── */
+    section { margin-bottom: 56px; scroll-margin-top: calc(var(--header-h) + 20px); }
+
+    h2 {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-p);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+    h2 .sn {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text-t);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    h3 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-s);
+      margin-top: 28px;
+      margin-bottom: 10px;
+    }
+
+    p { margin-bottom: 16px; max-width: 680px; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── Callouts ── */
+    .call {
+      border-left: 3px solid;
+      border-radius: 0 4px 4px 0;
+      padding: 14px 18px;
+      margin: 24px 0;
+      max-width: 680px;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .call.note  { background: var(--note-bg); border-color: var(--note-bd); }
+    .call.warn  { background: var(--warn-bg); border-color: var(--warn-bd); }
+    .call.rule  { background: var(--rule-bg); border-color: var(--rule-bd); }
+    .call.info  { background: var(--accent-lt); border-color: var(--accent-bd); }
+    .call p { margin-bottom: 8px; max-width: none; }
+    .call p:last-child { margin-bottom: 0; }
+    .call strong { font-weight: 600; }
+
+    /* ── Steps ── */
+    .steps { list-style: none; margin: 16px 0 24px; max-width: 680px; }
+    .steps li {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+      font-size: 14.5px;
+      line-height: 1.65;
+    }
+    .snum {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-lt);
+      border: 1px solid var(--accent-bd);
+      border-radius: 3px;
+      padding: 2px 7px;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      margin-left: var(--sidebar-w);
+      max-width: calc(var(--sidebar-w) + 800px);
+      padding: 24px 60px 48px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-t);
+      font-family: var(--font-mono);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer a { color: var(--text-t); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <span class="lab-name">Raredon Lab</span>
+    <span class="sep">/</span>
+    <span class="manual-name">General Manual</span>
+  </header>
+
+  <!-- Sidebar -->
+  <nav class="sidebar" aria-label="Manual navigation">
+    <div class="nav-section-label">General Manual</div>
+    <a href="index.html">Overview &amp; Index</a>
+    <a href="01-lab-mission.html">01 &mdash; Lab Mission &amp; Identity</a>
+    <a href="02-joining-the-lab.html" class="current-doc">02 &mdash; Joining the Lab</a>
+    <a href="03-expectations.html">03 &mdash; Expectations by Role</a>
+    <a href="04-authorship.html">04 &mdash; Authorship Principles</a>
+    <a href="05-first-author.html">05 &mdash; First Author Responsibilities</a>
+    <a href="06-mentorship.html">06 &mdash; Mentorship &amp; Career Development</a>
+    <a href="07-communication.html">07 &mdash; Communication &amp; Conduct</a>
+    <a href="08-safety.html">08 &mdash; General Safety</a>
+    <a href="09-leaving-the-lab.html">09 &mdash; Leaving the Lab</a>
+    <div class="nav-section-label" style="margin-top:16px;">Appendices</div>
+    <a href="appendix-a-meetings.html">Appendix A &mdash; Preparing for Meetings</a>
+
+    <div class="nav-section-label" style="margin-top:28px;">Sibling Manuals</div>
+    <a href="#">Computational Lab Manual</a>
+    <a href="#">Wet Lab Manual</a>
+
+    <div class="nav-section-label" style="margin-top:28px;">On this page</div>
+    <a href="#before-you-join" class="active">Before You Join</a>
+    <a href="#onboarding">Your First Weeks</a>
+    <a href="#reading">Reading</a>
+    <a href="#meetings">Meetings</a>
+    <a href="#what-to-expect">What to Expect from the PI</a>
+  </nav>
+
+  <!-- Main content -->
+  <main>
+    <p class="page-eyebrow">General Manual &mdash; Document 02</p>
+    <h1>Joining the Lab</h1>
+    <p class="page-sub">What to do before you join, what happens when you arrive, and what you can expect from the lab and from yourself.</p>
+    <hr class="page-divider" />
+
+    <!-- Section 1: Before You Join -->
+    <section id="before-you-join">
+      <h2><span class="sn">01</span> Before You Join</h2>
+
+      <p>The lab welcomes members at every level of training: undergraduates, rotation students, postgraduate associates, graduate students, postdoctoral researchers, staff scientists, and clinical collaborators. The expectations in this document apply broadly to all of them, with the understanding that scope, duration, and independence will differ by role.</p>
+
+      <p>Before joining, you should talk with the PI. For graduate students, a rotation is the standard path. Regardless of role, you are encouraged to meet with current and former lab members and to speak with external mentors or advisors who know you well. The goal of this process is not to pass a test: it is to help you make an informed decision about whether this lab is the right place for you.</p>
+
+      <p>If, after those conversations, the lab feels like a good fit, say so. Let the PI know and the two of you can talk further about next steps.</p>
+
+      <div class="call info">
+        <strong>On fit:</strong> the lab is invested in helping you find a training environment that matches your interests and working style. If this is not the right place, it is far better to know that early. Be honest with yourself and with the PI.
+      </div>
+    </section>
+
+    <!-- Section 2: Your First Weeks -->
+    <section id="onboarding">
+      <h2><span class="sn">02</span> Your First Weeks</h2>
+
+      <p>Onboarding in the lab is structured around three things: getting set up, getting oriented in the literature, and getting to know your colleagues. All three matter equally.</p>
+
+      <h3>Getting set up</h3>
+      <p>Depending on your role and intended direction, there will be computational and administrative setup to complete in your first days: accounts, systems, access, and tools. Computational members should consult the <a href="#">Computational Lab Manual</a> for detailed guidance on setup and environment configuration. If you are not sure what you need, ask.</p>
+
+      <h3>Introducing yourself</h3>
+      <p>The lab is your team, and these are your teammates. Make a point of introducing yourself to everyone and learning what they are working on. Share what you are doing, even if it is still forming. Learning and teaching happen daily here, and both require knowing your colleagues well enough to know when to ask and when to offer.</p>
+
+      <h3>Talking with the PI</h3>
+      <p>In your first weeks (for short rotations) and months (for graduate students and postdocs), plan to talk with the PI regularly. These early conversations are how the two of you will steer your direction together, aligning your skills, strengths, and interests with the larger scientific mission. Do not wait to be invited. Show up with questions.</p>
+    </section>
+
+    <!-- Section 3: Reading -->
+    <section id="reading">
+      <h2><span class="sn">03</span> Reading</h2>
+
+      <p>Reading scientific literature is essential in this lab. It is not background preparation for the real work; it is part of the work itself, and it begins on your first day.</p>
+
+      <p>Ask the PI and lab members for suggested reading directions early. Start downloading papers, marking them up with questions, and building a personal library organized in a way that makes sense to you. Trace citations. Follow threads. Dig deeply into the areas that interest you, and pay attention to the areas that do not hold your attention as a signal worth examining.</p>
+
+      <p>Reading consistently is how you build a knowledge tree that is yours and that you know well. It is also how you find your own blind spots: the things you do not know, or know and understand less well than you first thought. Strive to be wrong, and to recognize it, and to understand why. This is what learning looks like.</p>
+
+      <div class="call note">
+        <strong>A note on expertise:</strong> the goal is not to read everything. The goal is to develop real depth in areas of focus while maintaining enough breadth to work across disciplines. Let your reading be guided by curiosity and shaped by conversation with the PI.
+      </div>
+
+      <p>If you need help, with a paper you cannot parse, a concept you cannot place, or a citation trail that has gone cold, ask. The lab is a resource.</p>
+    </section>
+
+    <!-- Section 4: Meetings -->
+    <section id="meetings">
+      <h2><span class="sn">04</span> Meetings</h2>
+
+      <p>Every lab member has a 30-minute weekly 1:1 meeting with the PI. As the lab grows, tiered mentorship will also be established, with weekly 1:1s at each mentorship level to protect everyone's time and keep work organized.</p>
+
+      <p>Come prepared to your meetings. What that means in practice is covered in <a href="appendix-a-meetings.html">Preparing for Meetings</a>. The short version: know what you have done since you last met, know what you are stuck on, and know what you want to decide or discuss. A meeting without preparation is a meeting that costs more than it gives.</p>
+    </section>
+
+    <!-- Section 5: What to Expect from the PI -->
+    <section id="what-to-expect">
+      <h2><span class="sn">05</span> What to Expect from the PI</h2>
+
+      <p>Joining a lab involves a commitment on both sides. As PI, the responsibilities toward lab members are as follows.</p>
+
+      <p>It is the PI's responsibility to make sure that your time in the lab is appropriately funded, or, with sufficient advance notice, to be transparent that this may not be possible and to help you find additional mentorship and support to keep your studies protected and longitudinally viable.</p>
+
+      <p>Beyond funding, the PI commits to helping you grow into the version of yourself that you want to be, whatever that means. The goal of training is to develop new skills while staying in touch with how you want to grow, and to tune that training to fit your own interests and choices. The PI and you will work together to align those interests with the larger scientific mission of the lab.</p>
+
+      <div class="call note">
+        <strong>You are a learner first.</strong> The lab understands that you are here to grow. Mistakes, confusion, and false starts are part of the process. What matters is that you engage with them honestly, ask for help when you need it, and keep moving.
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <span>Raredon Lab &mdash; General Manual</span>
+    <span>Yale School of Medicine &mdash; Dept. of Anesthesiology</span>
+  </footer>
+
+</body>
+</html>

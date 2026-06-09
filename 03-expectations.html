@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expectations by Role &mdash; Raredon Lab General Manual</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --sidebar-w: 256px;
+      --header-h: 54px;
+      --bg: #FFFFFF;
+      --sidebar-bg: #F6F5F1;
+      --border: #E3E1DC;
+      --text-p: #1A1917;
+      --text-s: #5C5A56;
+      --text-t: #9C9A96;
+      --accent: #1D4ED8;
+      --accent-lt: #EFF6FF;
+      --accent-bd: #BFDBFE;
+      --code-bg: #F6F5F1;
+      --code-bd: #D8D6D0;
+      --note-bg: #F0FDF4;
+      --note-bd: #16A34A;
+      --warn-bg: #FFFBEB;
+      --warn-bd: #D97706;
+      --rule-bg: #FFF1F2;
+      --rule-bd: #E11D48;
+      --font: 'IBM Plex Sans', sans-serif;
+      --font-serif: 'IBM Plex Serif', serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-p);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* ── Header ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      background: #141210;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      z-index: 100;
+      gap: 16px;
+    }
+    header .lab-name {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: #E8E6E0;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+    header .manual-name {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-t);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border: 1px solid #333;
+      border-radius: 3px;
+    }
+    header .sep { color: #444; font-size: 18px; line-height: 1; }
+
+    /* ── Sidebar ── */
+    nav.sidebar {
+      position: fixed;
+      top: var(--header-h);
+      left: 0;
+      width: var(--sidebar-w);
+      height: calc(100vh - var(--header-h));
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      padding: 28px 0 40px;
+      z-index: 90;
+    }
+    .nav-section-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-t);
+      padding: 0 20px 8px;
+      margin-top: 20px;
+    }
+    .nav-section-label:first-child { margin-top: 0; }
+    nav.sidebar a {
+      display: block;
+      padding: 6px 20px;
+      font-size: 13px;
+      color: var(--text-s);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+    nav.sidebar a:hover {
+      color: var(--text-p);
+      background: rgba(0,0,0,0.04);
+    }
+    nav.sidebar a.active {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: var(--accent-lt);
+      font-weight: 500;
+    }
+    nav.sidebar a.current-doc {
+      color: var(--text-p);
+      font-weight: 600;
+      border-left-color: var(--border);
+    }
+
+    /* ── Content ── */
+    main {
+      margin-left: var(--sidebar-w);
+      max-width: calc(var(--sidebar-w) + 800px);
+      padding: 52px 60px 100px;
+      padding-top: calc(var(--header-h) + 52px);
+    }
+
+    /* ── Page header ── */
+    .page-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-t);
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--text-p);
+      margin-bottom: 10px;
+    }
+    .page-sub {
+      font-size: 16px;
+      color: var(--text-s);
+      margin-bottom: 40px;
+      max-width: 620px;
+      line-height: 1.6;
+    }
+    .page-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+
+    /* ── Role sections ── */
+    .role-section {
+      margin-bottom: 64px;
+      scroll-margin-top: calc(var(--header-h) + 20px);
+    }
+
+    h2 {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-p);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+    h2 .sn {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text-t);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .role-descriptor {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-t);
+      letter-spacing: 0.04em;
+      margin-bottom: 20px;
+    }
+    .role-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+
+    h3 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-s);
+      margin-top: 28px;
+      margin-bottom: 10px;
+    }
+
+    p { margin-bottom: 16px; max-width: 680px; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── Callouts ── */
+    .call {
+      border-left: 3px solid;
+      border-radius: 0 4px 4px 0;
+      padding: 14px 18px;
+      margin: 24px 0;
+      max-width: 680px;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .call.note  { background: var(--note-bg); border-color: var(--note-bd); }
+    .call.warn  { background: var(--warn-bg); border-color: var(--warn-bd); }
+    .call.rule  { background: var(--rule-bg); border-color: var(--rule-bd); }
+    .call.info  { background: var(--accent-lt); border-color: var(--accent-bd); }
+    .call p { margin-bottom: 8px; max-width: none; }
+    .call p:last-child { margin-bottom: 0; }
+    .call strong { font-weight: 600; }
+
+    /* ── Timeline bar ── */
+    .timeline {
+      display: flex;
+      gap: 0;
+      margin: 20px 0 28px;
+      max-width: 680px;
+      border-radius: 5px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .tblock {
+      flex: 1;
+      padding: 12px 14px;
+      font-size: 12.5px;
+      line-height: 1.5;
+      border-right: 1px solid var(--border);
+    }
+    .tblock:last-child { border-right: none; }
+    .tblock .tlabel {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-t);
+      margin-bottom: 4px;
+    }
+    .tblock .tdesc { color: var(--text-s); }
+    .tblock.t1 { background: var(--accent-lt); }
+    .tblock.t2 { background: var(--warn-bg); }
+    .tblock.t3 { background: var(--note-bg); }
+
+    /* ── Placeholder ── */
+    .placeholder {
+      border: 2px dashed var(--border);
+      border-radius: 6px;
+      padding: 28px 24px;
+      max-width: 680px;
+      color: var(--text-t);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-align: center;
+    }
+
+    /* ── Footer ── */
+    footer {
+      margin-left: var(--sidebar-w);
+      max-width: calc(var(--sidebar-w) + 800px);
+      padding: 24px 60px 48px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-t);
+      font-family: var(--font-mono);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer a { color: var(--text-t); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <span class="lab-name">Raredon Lab</span>
+    <span class="sep">/</span>
+    <span class="manual-name">General Manual</span>
+  </header>
+
+  <!-- Sidebar -->
+  <nav class="sidebar" aria-label="Manual navigation">
+    <div class="nav-section-label">General Manual</div>
+    <a href="index.html">Overview &amp; Index</a>
+    <a href="01-lab-mission.html">01 &mdash; Lab Mission &amp; Identity</a>
+    <a href="02-joining-the-lab.html">02 &mdash; Joining the Lab</a>
+    <a href="03-expectations.html" class="current-doc">03 &mdash; Expectations by Role</a>
+    <a href="04-authorship.html">04 &mdash; Authorship Principles</a>
+    <a href="05-first-author.html">05 &mdash; First Author Responsibilities</a>
+    <a href="06-mentorship.html">06 &mdash; Mentorship &amp; Career Development</a>
+    <a href="07-communication.html">07 &mdash; Communication &amp; Conduct</a>
+    <a href="08-safety.html">08 &mdash; General Safety</a>
+    <a href="09-leaving-the-lab.html">09 &mdash; Leaving the Lab</a>
+    <div class="nav-section-label" style="margin-top:16px;">Appendices</div>
+    <a href="appendix-a-meetings.html">Appendix A &mdash; Preparing for Meetings</a>
+
+    <div class="nav-section-label" style="margin-top:28px;">Sibling Manuals</div>
+    <a href="#">Computational Lab Manual</a>
+    <a href="#">Wet Lab Manual</a>
+
+    <div class="nav-section-label" style="margin-top:28px;">On this page</div>
+    <a href="#undergraduates" class="active">Undergraduates</a>
+    <a href="#visiting-pregrad">Visiting Pre-Graduate Students</a>
+    <a href="#rotation-students">Rotation Students</a>
+    <a href="#postgraduate-associates">Postgraduate Associates</a>
+    <a href="#graduate-students">Graduate Students</a>
+    <a href="#postdocs">Postdoctoral Researchers</a>
+    <a href="#staff-scientists">Staff Scientists</a>
+  </nav>
+
+  <!-- Main content -->
+  <main>
+    <p class="page-eyebrow">General Manual &mdash; Document 03</p>
+    <h1>Expectations by Role</h1>
+    <p class="page-sub">What is expected of each member of the lab, and what each member can expect in return : organized by training level and role.</p>
+    <hr class="page-divider" />
+
+    <!-- ── Undergraduates ── -->
+    <section class="role-section" id="undergraduates">
+      <h2><span class="sn">01</span> Undergraduates</h2>
+      <p class="role-descriptor">Yale undergraduates, typically sophomore through senior year</p>
+      <hr class="role-divider" />
+
+      <p>For most undergraduates, this is a first exposure to real research. The goal is both training and real contribution: early years in the lab are spent learning, attending lab meetings, helping with projects, and helping the lab run smoothly. What you put in is directly proportional to what you get out.</p>
+
+      <h3>Time commitment</h3>
+      <p>About 8 to 10 hours per week is appropriate for most undergraduates. Seniors with additional time and strong interest may elect to spend more time in the lab, particularly if pursuing a senior thesis.</p>
+
+      <h3>Senior theses</h3>
+      <p>If you are interested in committing to a senior thesis in the lab, this conversation should begin before your senior year. A plan, written as a set of specific aims collaboratively with the PI, must be developed in advance so that the work can be properly scoped, executed, and yield meaningful data within the time available. A thesis attempted without that planning is a thesis set up to struggle.</p>
+
+      <h3>What success looks like</h3>
+      <p>An undergraduate who has done well in the lab can point to a deep understanding of a specific subject they care about, and to work they can call their own. They have built skills, relationships, and a body of reading that belongs to them and travels with them wherever they go next.</p>
+    </section>
+
+    <!-- ── Visiting Pre-Graduate Students ── -->
+    <section class="role-section" id="visiting-pregrad">
+      <h2><span class="sn">02</span> Visiting Pre-Graduate Students</h2>
+      <p class="role-descriptor">Students from other institutions; typically 8-week summer visits</p>
+      <hr class="role-divider" />
+
+      <p>Visiting pre-graduate students are here for a bounded, fixed period: typically a summer of eight weeks. The primary educational goal is exposure: to real research, to the lab's scientific questions, and to what it feels like to work as part of a research team. Within that, there is real opportunity to contribute to ongoing work.</p>
+
+      <h3>Weekly expectations</h3>
+      <p>This is a full-time commitment: 40 hours per week. You are expected to attend all lab meetings and all project meetings to which you are invited. Weekly 1:1 meetings with the PI will be scheduled unless they conflict with your program's requirements, which take priority.</p>
+
+      <p>You will be assigned a day-to-day mentor in the lab. Plan to meet with this person approximately three times per week for 30 minutes. Come prepared to those meetings — see <a href="appendix-a-meetings.html">Appendix A &mdash; Preparing for Meetings</a>.</p>
+
+      <h3>Structure of the visit</h3>
+      <p>Eight weeks is a short time. The structure below is designed to make it productive rather than scattered.</p>
+
+      <div class="timeline">
+        <div class="tblock t1">
+          <div class="tlabel">Weeks 1&ndash;2</div>
+          <div class="tdesc">Reading, orientation, and project definition. Work with your mentor and PI to identify a focused question of appropriate scope.</div>
+        </div>
+        <div class="tblock t2">
+          <div class="tlabel">Weeks 3&ndash;6</div>
+          <div class="tdesc">Active experimentation. Generate and analyze data. Determine results. This is the core of the visit.</div>
+        </div>
+        <div class="tblock t3">
+          <div class="tlabel">Weeks 7&ndash;8</div>
+          <div class="tdesc">Organization, presentation preparation, final presentation to the lab, and handoff of all materials and findings to colleagues.</div>
+        </div>
+      </div>
+
+      <h3>What success looks like</h3>
+      <p>A visiting student who has done well will have tested a single hypothesis, related to ongoing lab work, in a sensible and rigorous way. They can present their results professionally, summarize what they learned clearly, and talk fluently about the experience. All materials are handed off in good order.</p>
+    </section>
+
+    <!-- ── Rotation Students ── -->
+    <section class="role-section" id="rotation-students">
+      <h2><span class="sn">03</span> Rotation Students</h2>
+      <p class="role-descriptor">Graduate students rotating through the lab, typically 8&ndash;10 weeks</p>
+      <hr class="role-divider" />
+
+      <p>A rotation is a mutual audition: for you to assess the lab, and for the lab to get to know you. The only way to do that well is through real work. Rotation students are expected to show up as professional scientists in training, ready to help. This gives everyone the information they need to determine whether the pairing is a good fit.</p>
+
+      <p>Contributions made during a rotation are credited regardless of whether the student ultimately joins the lab.</p>
+
+      <h3>Structure and scope</h3>
+      <p>Rotations are typically 8 to 10 weeks, though the precise timeline is program- and person-specific. At the start, explain your timeline to the PI. The two of you will then work together to identify a project of appropriate interest and scope. Expect a combination of mini-project work, open exploration, shadowing of lab members, and reading.</p>
+
+      <h3>How to make the most of it</h3>
+      <p>Communicate regularly with the PI. Set up meetings when you want them. Explore independence, but do not make yourself struggle unnecessarily: ask questions, and ask early. Read freely and thoughtfully. Protect your time: a rotation is not a test, and you are not being evaluated on how much you suffer through.</p>
+
+      <p>At the end of your rotation, talk with the PI directly. Share your feedback and explain your present thinking. You do not need to have made a decision yet. Take your time, consult your outside mentors and advisors, complete your other rotations, and circle back when you are ready.</p>
+
+      <div class="call note">
+        <strong>On the decision to join:</strong> you will not disappoint the PI by choosing not to join the lab. That choice is fully yours to make, and it is an important one. Make it wholeheartedly, in a way you can trust.
+      </div>
+
+      <h3>What success looks like</h3>
+      <p>A rotation student who has done well leaves with thoughtful, well-organized work; a clear sense of what they liked and did not like about the project, the lab, and the PI; ideas for possible future directions; the beginning or continuation of a personal reading library; friendships with lab members; and a richer understanding of the scientific landscape at Yale. Skills learned here belong to you regardless of where you go next.</p>
+    </section>
+
+    <!-- ── Postgraduate Associates ── -->
+    <section class="role-section" id="postgraduate-associates">
+      <h2><span class="sn">04</span> Postgraduate Associates</h2>
+      <p class="role-descriptor">Content forthcoming</p>
+      <hr class="role-divider" />
+      <div class="placeholder">This section will be drafted once content has been elicited from the PI.</div>
+    </section>
+
+    <!-- ── Graduate Students ── -->
+    <section class="role-section" id="graduate-students">
+      <h2><span class="sn">05</span> Graduate Students</h2>
+      <p class="role-descriptor">Content forthcoming</p>
+      <hr class="role-divider" />
+      <div class="placeholder">This section will be drafted once content has been elicited from the PI.</div>
+    </section>
+
+    <!-- ── Postdoctoral Researchers ── -->
+    <section class="role-section" id="postdocs">
+      <h2><span class="sn">06</span> Postdoctoral Researchers</h2>
+      <p class="role-descriptor">Content forthcoming</p>
+      <hr class="role-divider" />
+      <div class="placeholder">This section will be drafted once content has been elicited from the PI.</div>
+    </section>
+
+    <!-- ── Staff Scientists ── -->
+    <section class="role-section" id="staff-scientists">
+      <h2><span class="sn">07</span> Staff Scientists</h2>
+      <p class="role-descriptor">Content forthcoming</p>
+      <hr class="role-divider" />
+      <div class="placeholder">This section will be drafted once content has been elicited from the PI.</div>
+    </section>
+
+  </main>
+
+  <footer>
+    <span>Raredon Lab &mdash; General Manual</span>
+    <span>Yale School of Medicine &mdash; Dept. of Anesthesiology</span>
+  </footer>
+
+</body>
+</html>
