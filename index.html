@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Overview &amp; Index &mdash; Raredon Lab General Manual</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --sidebar-w: 256px;
+      --header-h: 54px;
+      --bg: #FFFFFF;
+      --sidebar-bg: #F6F5F1;
+      --border: #E3E1DC;
+      --text-p: #1A1917;
+      --text-s: #5C5A56;
+      --text-t: #9C9A96;
+      --accent: #1D4ED8;
+      --accent-lt: #EFF6FF;
+      --accent-bd: #BFDBFE;
+      --code-bg: #F6F5F1;
+      --code-bd: #D8D6D0;
+      --note-bg: #F0FDF4;
+      --note-bd: #16A34A;
+      --warn-bg: #FFFBEB;
+      --warn-bd: #D97706;
+      --rule-bg: #FFF1F2;
+      --rule-bd: #E11D48;
+      --font: 'IBM Plex Sans', sans-serif;
+      --font-serif: 'IBM Plex Serif', serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-p);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* ── Header ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      background: #141210;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      z-index: 100;
+      gap: 16px;
+    }
+    header .lab-name {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: #E8E6E0;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+    header .manual-name {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-t);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border: 1px solid #333;
+      border-radius: 3px;
+    }
+    header .sep { color: #444; font-size: 18px; line-height: 1; }
+
+    /* ── Sidebar ── */
+    nav.sidebar {
+      position: fixed;
+      top: var(--header-h);
+      left: 0;
+      width: var(--sidebar-w);
+      height: calc(100vh - var(--header-h));
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      padding: 28px 0 40px;
+      z-index: 90;
+    }
+    .nav-section-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-t);
+      padding: 0 20px 8px;
+      margin-top: 20px;
+    }
+    .nav-section-label:first-child { margin-top: 0; }
+    nav.sidebar a {
+      display: block;
+      padding: 6px 20px;
+      font-size: 13px;
+      color: var(--text-s);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+    nav.sidebar a:hover {
+      color: var(--text-p);
+      background: rgba(0,0,0,0.04);
+    }
+    nav.sidebar a.active {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: var(--accent-lt);
+      font-weight: 500;
+    }
+    nav.sidebar a.current-doc {
+      color: var(--text-p);
+      font-weight: 600;
+      border-left-color: var(--border);
+    }
+
+    /* ── Content ── */
+    main {
+      margin-left: var(--sidebar-w);
+      max-width: calc(var(--sidebar-w) + 800px);
+      padding: 52px 60px 100px;
+      padding-top: calc(var(--header-h) + 52px);
+    }
+
+    /* ── Page header ── */
+    .page-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-t);
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--text-p);
+      margin-bottom: 10px;
+    }
+    .page-sub {
+      font-size: 16px;
+      color: var(--text-s);
+      margin-bottom: 40px;
+      max-width: 620px;
+      line-height: 1.6;
+    }
+    .page-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+
+    /* ── Sections ── */
+    section { margin-bottom: 56px; scroll-margin-top: calc(var(--header-h) + 20px); }
+
+    h2 {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-p);
+      margin-bottom: 18px;
+    }
+
+    p { margin-bottom: 16px; max-width: 680px; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── Document list ── */
+    .doc-list {
+      max-width: 680px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .doc-list-divider {
+      padding: 8px 20px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-t);
+      background: var(--sidebar-bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .doc-entry {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.12s;
+    }
+    .doc-entry:last-child { border-bottom: none; }
+    .doc-entry:hover { background: var(--accent-lt); }
+    .doc-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-t);
+      letter-spacing: 0.06em;
+      flex-shrink: 0;
+      min-width: 20px;
+      margin-top: 3px;
+    }
+    .doc-title {
+      font-size: 14.5px;
+      font-weight: 500;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 3px;
+    }
+    .doc-desc {
+      font-size: 13px;
+      color: var(--text-s);
+      line-height: 1.55;
+      display: block;
+    }
+
+    /* ── Footer ── */
+    footer {
+      margin-left: var(--sidebar-w);
+      max-width: calc(var(--sidebar-w) + 800px);
+      padding: 24px 60px 48px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-t);
+      font-family: var(--font-mono);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer a { color: var(--text-t); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <span class="lab-name">Raredon Lab</span>
+    <span class="sep">/</span>
+    <span class="manual-name">General Manual</span>
+  </header>
+
+  <!-- Sidebar -->
+  <nav class="sidebar" aria-label="Manual navigation">
+    <div class="nav-section-label">General Manual</div>
+    <a href="index.html" class="current-doc">Overview &amp; Index</a>
+    <a href="01-lab-mission.html">01 &mdash; Lab Mission &amp; Identity</a>
+    <a href="02-joining-the-lab.html">02 &mdash; Joining the Lab</a>
+    <a href="03-expectations.html">03 &mdash; Expectations by Role</a>
+    <a href="04-authorship.html">04 &mdash; Authorship Principles</a>
+    <a href="05-first-author.html">05 &mdash; First Author Responsibilities</a>
+    <a href="06-mentorship.html">06 &mdash; Mentorship &amp; Career Development</a>
+    <a href="07-communication.html">07 &mdash; Communication &amp; Conduct</a>
+    <a href="08-safety.html">08 &mdash; General Safety</a>
+    <a href="09-leaving-the-lab.html">09 &mdash; Leaving the Lab</a>
+    <div class="nav-section-label" style="margin-top:16px;">Appendices</div>
+    <a href="appendix-a-meetings.html">Appendix A &mdash; Preparing for Meetings</a>
+
+    <div class="nav-section-label" style="margin-top:28px;">Sibling Manuals</div>
+    <a href="#">Computational Lab Manual</a>
+    <a href="#">Wet Lab Manual</a>
+
+    <div class="nav-section-label" style="margin-top:28px;">On this page</div>
+    <a href="#about" class="active">About This Manual</a>
+    <a href="#documents">Documents</a>
+    <a href="#sibling-manuals">Sibling Manuals</a>
+  </nav>
+
+  <!-- Main content -->
+  <main>
+    <p class="page-eyebrow">General Manual</p>
+    <h1>Raredon Lab General Manual</h1>
+    <p class="page-sub">A guide for all lab members, covering lab culture, expectations, authorship, mentorship, and more.</p>
+    <hr class="page-divider" />
+
+    <!-- About -->
+    <section id="about">
+      <h2>About This Manual</h2>
+
+      <p>This manual applies to all members of the Raredon Lab, regardless of training level or scientific background. It covers the values and expectations that shape how the lab works: what it means to join, what is expected at each stage of training, how authorship and credit are handled, how mentorship is structured, and what leaving looks like.</p>
+
+      <p>Read it when you join. Consult it throughout. Return to it when questions arise. If something is unclear or you disagree with what you find here, raise it directly with the PI.</p>
+    </section>
+
+    <!-- Documents -->
+    <section id="documents">
+      <h2>Documents in This Manual</h2>
+
+      <div class="doc-list">
+        <div class="doc-list-divider">Core Documents</div>
+        <a class="doc-entry" href="01-lab-mission.html">
+          <span class="doc-num">01</span>
+          <div>
+            <span class="doc-title">Lab Mission and Identity</span>
+            <span class="doc-desc">Who we are, what the lab is working toward, and the values it operates by.</span>
+          </div>
+        </a>
+        <a class="doc-entry" href="02-joining-the-lab.html">
+          <span class="doc-num">02</span>
+          <div>
+            <span class="doc-title">Joining the Lab</span>
+            <span class="doc-desc">What to do before you join, what to expect in your first weeks, and what the PI commits to you.</span>
+          </div>
+        </a>
+        <a class="doc-entry" href="03-expectations.html">
+          <span class="doc-num">03</span>
+          <div>
+            <span class="doc-title">Expectations by Role</span>
+            <span class="doc-desc">Role-specific expectations for every level of training, from undergraduates to staff scientists.</span>
+          </div>
+        </a>
+        <a class="doc-entry" href="04-authorship.html">
+          <span class="doc-num">04</span>
+          <div>
+            <span class="doc-title">Authorship Principles</span>
+            <span class="doc-desc">The lab's standards for authorship using the CRediT taxonomy, authorship conversations, and how disputes are handled.</span>
+          </div>
+        </a>
+        <a class="doc-entry" href="05-first-author.html">
+          <span class="doc-num">05</span>
+          <div>
+            <span class="doc-title">First Author Responsibilities</span>
+            <span class="doc-desc">The full first-author standard: what it means to lead a paper from inception through submission and beyond.</span>
+          </div>
+        </a>
+        <a class="doc-entry" href="06-mentorship.html">
+          <span class="doc-num">06</span>
+          <div>
+            <span class="doc-title">Mentorship and Career Development</span>
+            <span class="doc-desc">How mentorship works in the lab, the PI's role, and how to think about your own career trajectory.</span>
+          </div>
+        </a>
+        <a class="doc-entry" href="07-communication.html">
+          <span class="doc-num">07</span>
+          <div>
+            <span class="doc-title">Communication and Conduct</span>
+            <span class="doc-desc">Lab culture, meeting norms, communication expectations, and how the lab handles conflict.</span>
+          </div>
+        </a>
+        <a class="doc-entry" href="08-safety.html">
+          <span class="doc-num">08</span>
+          <div>
+            <span class="doc-title">General Safety</span>
+            <span class="doc-desc">Lab-wide safety expectations applicable to all members, regardless of where work takes place.</span>
+          </div>
+        </a>
+        <a class="doc-entry" href="09-leaving-the-lab.html">
+          <span class="doc-num">09</span>
+          <div>
+            <span class="doc-title">Leaving the Lab</span>
+            <span class="doc-desc">Exit expectations, materials handoff, letters of recommendation, and how alumni relationships work.</span>
+          </div>
+        </a>
+        <div class="doc-list-divider">Appendices</div>
+        <a class="doc-entry" href="appendix-a-meetings.html">
+          <span class="doc-num">A</span>
+          <div>
+            <span class="doc-title">Preparing for Meetings</span>
+            <span class="doc-desc">How to prepare for and make the most of 1:1 meetings and lab meetings.</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Sibling Manuals -->
+    <section id="sibling-manuals">
+      <h2>Sibling Manuals</h2>
+
+      <p>This manual is one of three maintained by the Raredon Lab. Each covers a distinct domain, and together they apply to all lab members across all types of work.</p>
+
+      <p>The <a href="#">Computational Lab Manual</a> covers coding standards, data practices, environment setup, version control, and computational workflows. If you work with code, data, or computational tools, that manual is required reading.</p>
+
+      <p>The <a href="#">Wet Lab Manual</a> covers laboratory protocols, reagent and equipment standards, experimental record-keeping, and safety procedures specific to bench work. If you work at the bench, that manual is required reading.</p>
+
+      <p>Where content in one manual is relevant to another, cross-links are provided. This general manual takes precedence on matters of authorship, credit, lab culture, and mentorship.</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <span>Raredon Lab &mdash; General Manual</span>
+    <span>Yale School of Medicine &mdash; Dept. of Anesthesiology</span>
+  </footer>
+
+</body>
+</html>
