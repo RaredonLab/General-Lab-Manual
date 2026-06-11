@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>First Author Responsibilities &mdash; Raredon Lab General Manual</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --sidebar-w: 256px;
+      --header-h: 54px;
+      --bg: #FFFFFF;
+      --sidebar-bg: #F6F5F1;
+      --border: #E3E1DC;
+      --text-p: #1A1917;
+      --text-s: #5C5A56;
+      --text-t: #9C9A96;
+      --accent: #1D4ED8;
+      --accent-lt: #EFF6FF;
+      --accent-bd: #BFDBFE;
+      --code-bg: #F6F5F1;
+      --code-bd: #D8D6D0;
+      --note-bg: #F0FDF4;
+      --note-bd: #16A34A;
+      --warn-bg: #FFFBEB;
+      --warn-bd: #D97706;
+      --rule-bg: #FFF1F2;
+      --rule-bd: #E11D48;
+      --font: 'IBM Plex Sans', sans-serif;
+      --font-serif: 'IBM Plex Serif', serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-p);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* ── Header ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      background: #141210;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      z-index: 100;
+      gap: 16px;
+    }
+    header .lab-name {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: #E8E6E0;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+    header .manual-name {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-t);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border: 1px solid #333;
+      border-radius: 3px;
+    }
+    header .sep { color: #444; font-size: 18px; line-height: 1; }
+
+    /* ── Sidebar ── */
+    nav.sidebar {
+      position: fixed;
+      top: var(--header-h);
+      left: 0;
+      width: var(--sidebar-w);
+      height: calc(100vh - var(--header-h));
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      padding: 28px 0 40px;
+      z-index: 90;
+    }
+    .nav-section-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-t);
+      padding: 0 20px 8px;
+      margin-top: 20px;
+    }
+    .nav-section-label:first-child { margin-top: 0; }
+    nav.sidebar a {
+      display: block;
+      padding: 6px 20px;
+      font-size: 13px;
+      color: var(--text-s);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+    nav.sidebar a:hover {
+      color: var(--text-p);
+      background: rgba(0,0,0,0.04);
+    }
+    nav.sidebar a.active {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: var(--accent-lt);
+      font-weight: 500;
+    }
+    nav.sidebar a.current-doc {
+      color: var(--text-p);
+      font-weight: 600;
+      border-left-color: var(--border);
+    }
+
+    /* ── Content ── */
+    main {
+      margin-left: var(--sidebar-w);
+      max-width: calc(var(--sidebar-w) + 800px);
+      padding: 52px 60px 100px;
+      padding-top: calc(var(--header-h) + 52px);
+    }
+
+    /* ── Page header ── */
+    .page-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-t);
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--text-p);
+      margin-bottom: 10px;
+    }
+    .page-sub {
+      font-size: 16px;
+      color: var(--text-s);
+      margin-bottom: 40px;
+      max-width: 620px;
+      line-height: 1.6;
+    }
+    .page-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+
+    /* ── Sections ── */
+    section { margin-bottom: 56px; scroll-margin-top: calc(var(--header-h) + 20px); }
+
+    h2 {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-p);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+    h2 .sn {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text-t);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    h3 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-s);
+      margin-top: 32px;
+      margin-bottom: 10px;
+    }
+
+    p { margin-bottom: 16px; max-width: 680px; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── Callouts ── */
+    .call {
+      border-left: 3px solid;
+      border-radius: 0 4px 4px 0;
+      padding: 14px 18px;
+      margin: 24px 0;
+      max-width: 680px;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .call.note  { background: var(--note-bg); border-color: var(--note-bd); }
+    .call.warn  { background: var(--warn-bg); border-color: var(--warn-bd); }
+    .call.rule  { background: var(--rule-bg); border-color: var(--rule-bd); }
+    .call.info  { background: var(--accent-lt); border-color: var(--accent-bd); }
+    .call p { margin-bottom: 8px; max-width: none; }
+    .call p:last-child { margin-bottom: 0; }
+    .call strong { font-weight: 600; }
+
+    /* ── Component cards ── */
+    .component-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      max-width: 680px;
+      margin: 20px 0 32px;
+    }
+    .comp-card {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 18px 20px;
+      background: var(--sidebar-bg);
+    }
+    .comp-card .comp-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    .comp-card .comp-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-p);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .comp-card .comp-desc {
+      font-size: 13px;
+      color: var(--text-s);
+      line-height: 1.6;
+    }
+    .comp-card .comp-qualifier {
+      font-size: 12px;
+      color: var(--text-t);
+      font-style: italic;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    /* ── Checklist ── */
+    .checklist {
+      list-style: none;
+      margin: 12px 0 24px;
+      max-width: 680px;
+    }
+    .checklist li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-p);
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist li::before {
+      content: '';
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 3px;
+      flex-shrink: 0;
+      margin-top: 4px;
+      background: var(--bg);
+    }
+    .checklist li.sub {
+      padding-left: 28px;
+      color: var(--text-s);
+      font-size: 13.5px;
+      border-bottom: none;
+      padding-top: 3px;
+      padding-bottom: 3px;
+    }
+    .checklist li.sub::before {
+      border-color: transparent;
+      background: transparent;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      border: none;
+      background: var(--text-t);
+      margin-top: 7px;
+    }
+
+    /* ── Four-step data grid ── */
+    .data-steps {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      max-width: 680px;
+      margin: 16px 0 28px;
+    }
+    .ds-card {
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 14px 16px;
+      background: var(--sidebar-bg);
+    }
+    .ds-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .ds-title {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-p);
+      margin-bottom: 6px;
+    }
+    .ds-desc {
+      font-size: 13px;
+      color: var(--text-s);
+      line-height: 1.55;
+    }
+
+    /* ── Footer ── */
+    footer {
+      margin-left: var(--sidebar-w);
+      max-width: calc(var(--sidebar-w) + 800px);
+      padding: 24px 60px 48px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-t);
+      font-family: var(--font-mono);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer a { color: var(--text-t); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <span class="lab-name">Raredon Lab</span>
+    <span class="sep">/</span>
+    <span class="manual-name">General Manual</span>
+  </header>
+
+  <!-- Sidebar -->
+  <nav class="sidebar" aria-label="Manual navigation">
+    <div class="nav-section-label">General Manual</div>
+    <a href="index.html">Overview &amp; Index</a>
+    <a href="01-lab-mission.html">01 &mdash; Lab Mission &amp; Identity</a>
+    <a href="02-joining-the-lab.html">02 &mdash; Joining the Lab</a>
+    <a href="03-expectations.html">03 &mdash; Expectations by Role</a>
+    <a href="04-authorship.html">04 &mdash; Authorship Principles</a>
+    <a href="05-first-author.html" class="current-doc">05 &mdash; First Author Responsibilities</a>
+    <a href="06-mentorship.html">06 &mdash; Mentorship &amp; Career Development</a>
+    <a href="07-communication.html">07 &mdash; Communication &amp; Conduct</a>
+    <a href="08-safety.html">08 &mdash; General Safety</a>
+    <a href="09-leaving-the-lab.html">09 &mdash; Leaving the Lab</a>
+    <div class="nav-section-label" style="margin-top:16px;">Appendices</div>
+    <a href="appendix-a-meetings.html">Appendix A &mdash; Preparing for Meetings</a>
+
+    <div class="nav-section-label" style="margin-top:28px;">Sibling Manuals</div>
+    <a href="#">Computational Lab Manual</a>
+    <a href="#">Wet Lab Manual</a>
+
+    <div class="nav-section-label" style="margin-top:28px;">On this page</div>
+    <a href="#two-components" class="active">Two Components</a>
+    <a href="#component-1">Component 1: Deep Involvement</a>
+    <a href="#four-steps">The Four Steps of Data</a>
+    <a href="#literature">Scientific Literature</a>
+    <a href="#component-2">Component 2: Assembly for Publication</a>
+    <a href="#main-text">Main Text</a>
+    <a href="#figures">Figures</a>
+    <a href="#supplemental">Supplemental Materials</a>
+    <a href="#data-and-code">Data and Code</a>
+    <a href="#submission">Submission and Peer Review</a>
+  </nav>
+
+  <!-- Main content -->
+  <main>
+    <p class="page-eyebrow">General Manual &mdash; Document 05</p>
+    <h1>Responsibilities of the First Author</h1>
+    <p class="page-sub">What it means to be a first author in this lab, in full.</p>
+    <hr class="page-divider" />
+
+    <!-- Section 1: Two Components -->
+    <section id="two-components">
+      <h2><span class="sn">01</span> Two Components</h2>
+
+      <p>The responsibilities of a first author include two major components:</p>
+
+      <div class="component-cards">
+        <div class="comp-card">
+          <div class="comp-label">Component 1</div>
+          <div class="comp-title">Deep, longitudinal involvement</div>
+          <div class="comp-desc">Theoretical conception, literature review, experimental design, procedure performance, wet- and dry-lab data acquisition, data analysis, data visualization, figure craft, figure presentation, figure critique, figure editing, and overall story-craft.</div>
+          <div class="comp-qualifier">Fulfillment of the above qualifies people to act as first authors.</div>
+        </div>
+        <div class="comp-card">
+          <div class="comp-label">Component 2</div>
+          <div class="comp-title">Organization and assembly for publication</div>
+          <div class="comp-desc">Writing, editing, proof-reading, document and data assembly, critical evaluation, certification of accuracy and completeness, and iterative response to reviewers during peer-review.</div>
+          <div class="comp-qualifier">Fulfillment of the above is the action of being a first author.</div>
+        </div>
+      </div>
+
+      <p>The first author of a manuscript should be involved deeply in the conception, execution, supervision, and consideration of all materials within a manuscript. They are responsible, fundamentally, with validating all published material therein, and therefore need to be familiar with, comfortable with, and capable of fact-checking, sanity-checking, and proof-reading all components in the submitted and/or published manuscript. The first author should also be capable of presenting the work in a coherent and clear fashion, and of representing the laboratory and the team fully and respectfully. This necessitates a deep knowledge and involvement with all work that has led to the final manuscript, including wet lab, dry lab, theory, literature review, art, rebuttal, and revisions.</p>
+    </section>
+
+    <!-- Section 2: Component 1 — Deep Involvement -->
+    <section id="component-1">
+      <h2><span class="sn">02</span> Component 1: Deep Involvement</h2>
+
+      <p>It is important to recognize that data acquisition, data exploration, data analysis, and data presentation are four separate things, each of which carries similar scientific weight and importance. The first author of a manuscript should be involved with, and is responsible for, all four of these steps.</p>
+    </section>
+
+    <!-- Section 3: The Four Steps of Data -->
+    <section id="four-steps">
+      <h2><span class="sn">03</span> The Four Steps of Data</h2>
+
+      <div class="data-steps">
+        <div class="ds-card">
+          <div class="ds-label">Step 1</div>
+          <div class="ds-title">Data Acquisition</div>
+          <div class="ds-desc">The physical design and execution of wet-lab experiments and/or the computational assembly, management, and annotation of a dataset.</div>
+        </div>
+        <div class="ds-card">
+          <div class="ds-label">Step 2</div>
+          <div class="ds-title">Data Exploration</div>
+          <div class="ds-desc">A key observational process in which the acquired data is checked for quality and artifact, iteratively annotated, grouped into categories and subsets, inspected for biologically relevant patterns, and used to generate hypotheses for formal statistical testing.</div>
+        </div>
+        <div class="ds-card">
+          <div class="ds-label">Step 3</div>
+          <div class="ds-title">Data Analysis</div>
+          <div class="ds-desc">Formal, mathematical testing of hypotheses, statistical modeling, and production of graphical and tabular outputs meant to act as concrete, quantitative outputs which establish the key findings of the scientific paper.</div>
+        </div>
+        <div class="ds-card">
+          <div class="ds-label">Step 4</div>
+          <div class="ds-title">Data Presentation</div>
+          <div class="ds-desc">Graphical design work to communicate findings clearly and unambiguously for peer-review and for public dissemination: making figures for publication. This step is often underappreciated and under-budgeted for time-wise. It generally takes as much time as each other step and requires specialized practice, like the others.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Scientific Literature -->
+    <section id="literature">
+      <h2><span class="sn">04</span> Scientific Literature</h2>
+
+      <p>Background for all of the above requires a deep engagement with and knowledge of relevant scientific literature. A central responsibility of first authors is to read regularly (daily or at least weekly) about relevant topics, methods, approaches, prior work, comparable systems, and historical biases. This reading should inform both the first author's perspective and intellectual stance, and also be communicated regularly to other team members and/or the lab as a whole.</p>
+
+      <p>This is a form of leadership within a lab that helps the lab to develop common languages and understanding, which is essential for smooth paper writing when preparing for publication. This reading should be done longitudinally and not be rushed, and should be discussed and shared with the group and with colleagues whenever and as much as possible.</p>
+
+      <p>It is very hard to stay on top of the literature at any level of training. First authors therefore play an important role in helping to keep a lab up-to-date and informed about historical precedent and ongoing work that helps to situate ongoing research, and is therefore important to reference within publications submitted for review.</p>
+    </section>
+
+    <!-- Section 5: Component 2 — Assembly for Publication -->
+    <section id="component-2">
+      <h2><span class="sn">05</span> Component 2: Assembly for Publication</h2>
+
+      <p>The first author of a manuscript is responsible for generating, collecting, organizing, and critically evaluating all materials, data, and information necessary to submit the manuscript, and then assembling these materials into a complete manuscript.</p>
+    </section>
+
+    <!-- Section 6: Main Text -->
+    <section id="main-text">
+      <h2><span class="sn">06</span> Main Text</h2>
+
+      <p>The first author is responsible for identifying and reading journal formatting requirements, and formatting manuscript documents appropriately for both initial and subsequent submissions.</p>
+
+      <p>The first author is responsible for writing, editing, and proof-reading the Main Text from initial draft through submission and through peer-review. The Main Text includes:</p>
+
+      <ul class="checklist">
+        <li>Abstract</li>
+        <li>Introduction</li>
+        <li>Brief Methods</li>
+        <li>Results</li>
+        <li>Discussion</li>
+        <li>References</li>
+        <li>Acknowledgements</li>
+        <li>Funding</li>
+        <li>Data Availability</li>
+        <li>Code Availability</li>
+        <li>Conflict of Interest statement</li>
+      </ul>
+
+      <p>The first author is responsible for identifying and adding all necessary references, proof-reading reference selection and order, formatting for specific journal submissions using EndNote or Zotero, and adding or revising as necessary in response to author, reviewer, and editor comments.</p>
+    </section>
+
+    <!-- Section 7: Figures -->
+    <section id="figures">
+      <h2><span class="sn">07</span> Figures</h2>
+
+      <p>The first author is responsible for assembling, editing, and proof-reading all Main Figures in Adobe Illustrator. Formatting requirements for Main Figures include:</p>
+
+      <ul class="checklist">
+        <li>All content must be clearly legible and interpretable</li>
+        <li>All inserted imagery must be linked to source files saved co-local with the .ai file</li>
+        <li>All font must be larger than 6pt, unless it is not meant to be read</li>
+        <li>All images should be sufficient resolution to avoid obvious pixelation at 300dpi export</li>
+        <li>All images should be reproduced without stretch, compression, or shear</li>
+        <li>All raw data should be preserved without edit (edits must be made on copied files)</li>
+        <li>All images must be made by humans</li>
+        <li>All microscopy images must have accurate scale bars</li>
+        <li>All graph axes must have accurate labels</li>
+        <li>All panels should be labeled alphabetically</li>
+      </ul>
+
+      <p>The first author is also responsible for writing, editing, and proof-reading the Figure Legends. All Main Figures must have an associated Figure Legend. Formatting requirements for Figure Legends include:</p>
+
+      <ul class="checklist">
+        <li>All figure panels should be described briefly and clearly</li>
+        <li>All figure panels must be described in the order that they appear in the legend</li>
+        <li>All figure panels must be referenced in the Main Text, again in the order that they appear</li>
+      </ul>
+    </section>
+
+    <!-- Section 8: Supplemental Materials -->
+    <section id="supplemental">
+      <h2><span class="sn">08</span> Supplemental Materials</h2>
+
+      <p>The first author is responsible for identifying the need for Supplemental Figures. If Supplemental Figures are required, they must adhere to the same formatting requirements as the Main Figures and Figure Legends described above. Note that different journals allow different limits on Supplemental Figures.</p>
+
+      <p>The first author is also responsible for identifying the need for Supplemental Files. These can include data, tables, or file-sets. If Supplemental Files are required, it is the responsibility of the first author to assemble and organize all necessary materials and prepare them for appropriate upload. Note that different journals allow different limits on Supplemental Files.</p>
+    </section>
+
+    <!-- Section 9: Data and Code -->
+    <section id="data-and-code">
+      <h2><span class="sn">09</span> Data and Code</h2>
+
+      <h3>GEO Submission</h3>
+      <p>If sequencing data has been acquired, the first author is responsible for assembling all materials for a GEO submission. This includes:</p>
+
+      <ul class="checklist">
+        <li>Identifying and gathering all raw data files (FASTQs, raw Xenium outputs)</li>
+        <li>Identifying and gathering all processed data files (final output objects, including metadata)</li>
+        <li>Identifying and gathering intermediate data processing files, if deemed appropriate</li>
+        <li>Filling out, proof-reading, and editing the GEO metadata sheet</li>
+        <li>Running MD5 checksum procedures</li>
+        <li>Uploading files to GEO</li>
+      </ul>
+
+      <h3>GitHub Repository</h3>
+      <p>If code has been written or used, the first author is responsible for assembling, organizing, proof-reading, and updating a GitHub repository. This includes:</p>
+
+      <ul class="checklist">
+        <li>Assessing what computational procedures were performed</li>
+        <li>Identifying what code was used to execute these procedures</li>
+        <li>Organizing this code for public distribution</li>
+        <li>Writing, editing, and proof-reading a README file</li>
+        <li>Pushing edits to a personal fork of the main repository, then performing a pull request to the main repository</li>
+        <li>Updating as needed in response to author, reviewer, or editor comments</li>
+      </ul>
+    </section>
+
+    <!-- Section 10: Submission and Peer Review -->
+    <section id="submission">
+      <h2><span class="sn">10</span> Submission and Peer Review</h2>
+
+      <h3>Author list and acknowledgements</h3>
+      <p>It is the responsibility of the first author to help keep track of all people who have contributed or may feel that they have contributed to the work, and to propose an author list to the PI that they feel appropriately credits each individual's contribution. The first author is also responsible for writing the Acknowledgements, Funding, and Conflict of Interest sections.</p>
+
+      <h3>Cover letter</h3>
+      <p>The first author is responsible for drafting a cover letter to the editors of the selected journal.</p>
+
+      <h3>Submission</h3>
+      <p>The first author is responsible for proof-reading and assembling all documents for submission to the selected journal. Files should be well-organized and clearly labeled. A time should then be scheduled with the PI to submit the materials in-office together. It is the responsibility of the first author to know the contents of each document and to certify that the manuscript is accurate and complete.</p>
+
+      <h3>Peer review and revision</h3>
+      <p>The first author is responsible for preparing, assembling, and re-submitting a response to reviewer and editor feedback for each round of peer-review. This includes:</p>
+
+      <ul class="checklist">
+        <li>Writing, editing, and proof-reading a rebuttal letter</li>
+        <li>Editing the Main Text, Methods, Main Figures, Main Figure Legends, Supplemental Figures, Supplemental Figure Legends, Supplemental Files, References, online repositories, and other sections as necessary to respond to reviewer and/or editor comments</li>
+        <li>Drafting a new cover letter describing the changes made</li>
+        <li>Iteratively preparing the above through each round of review, until peer-review is complete</li>
+      </ul>
+
+      <div class="call note">
+        <strong>Final proofing:</strong> following acceptance and prior to publication, the first author is responsible for a final proof of the assembled manuscript.
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <span>Raredon Lab &mdash; General Manual</span>
+    <span>Yale School of Medicine &mdash; Dept. of Anesthesiology</span>
+  </footer>
+
+</body>
+</html>
