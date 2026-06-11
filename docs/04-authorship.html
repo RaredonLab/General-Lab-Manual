@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Authorship Principles &mdash; Raredon Lab General Manual</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --sidebar-w: 256px;
+      --header-h: 54px;
+      --bg: #FFFFFF;
+      --sidebar-bg: #F6F5F1;
+      --border: #E3E1DC;
+      --text-p: #1A1917;
+      --text-s: #5C5A56;
+      --text-t: #9C9A96;
+      --accent: #1D4ED8;
+      --accent-lt: #EFF6FF;
+      --accent-bd: #BFDBFE;
+      --code-bg: #F6F5F1;
+      --code-bd: #D8D6D0;
+      --note-bg: #F0FDF4;
+      --note-bd: #16A34A;
+      --warn-bg: #FFFBEB;
+      --warn-bd: #D97706;
+      --rule-bg: #FFF1F2;
+      --rule-bd: #E11D48;
+      --font: 'IBM Plex Sans', sans-serif;
+      --font-serif: 'IBM Plex Serif', serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-p);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* ── Header ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      background: #141210;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      z-index: 100;
+      gap: 16px;
+    }
+    header .lab-name {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: #E8E6E0;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+    header .manual-name {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-t);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border: 1px solid #333;
+      border-radius: 3px;
+    }
+    header .sep { color: #444; font-size: 18px; line-height: 1; }
+
+    /* ── Sidebar ── */
+    nav.sidebar {
+      position: fixed;
+      top: var(--header-h);
+      left: 0;
+      width: var(--sidebar-w);
+      height: calc(100vh - var(--header-h));
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      padding: 28px 0 40px;
+      z-index: 90;
+    }
+    .nav-section-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-t);
+      padding: 0 20px 8px;
+      margin-top: 20px;
+    }
+    .nav-section-label:first-child { margin-top: 0; }
+    nav.sidebar a {
+      display: block;
+      padding: 6px 20px;
+      font-size: 13px;
+      color: var(--text-s);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+    nav.sidebar a:hover {
+      color: var(--text-p);
+      background: rgba(0,0,0,0.04);
+    }
+    nav.sidebar a.active {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: var(--accent-lt);
+      font-weight: 500;
+    }
+    nav.sidebar a.current-doc {
+      color: var(--text-p);
+      font-weight: 600;
+      border-left-color: var(--border);
+    }
+
+    /* ── Content ── */
+    main {
+      margin-left: var(--sidebar-w);
+      max-width: calc(var(--sidebar-w) + 800px);
+      padding: 52px 60px 100px;
+      padding-top: calc(var(--header-h) + 52px);
+    }
+
+    /* ── Page header ── */
+    .page-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-t);
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--text-p);
+      margin-bottom: 10px;
+    }
+    .page-sub {
+      font-size: 16px;
+      color: var(--text-s);
+      margin-bottom: 40px;
+      max-width: 620px;
+      line-height: 1.6;
+    }
+    .page-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+
+    /* ── Sections ── */
+    section { margin-bottom: 56px; scroll-margin-top: calc(var(--header-h) + 20px); }
+
+    h2 {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-p);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+    h2 .sn {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text-t);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    h3 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-s);
+      margin-top: 28px;
+      margin-bottom: 10px;
+    }
+
+    p { margin-bottom: 16px; max-width: 680px; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── Callouts ── */
+    .call {
+      border-left: 3px solid;
+      border-radius: 0 4px 4px 0;
+      padding: 14px 18px;
+      margin: 24px 0;
+      max-width: 680px;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .call.note  { background: var(--note-bg); border-color: var(--note-bd); }
+    .call.warn  { background: var(--warn-bg); border-color: var(--warn-bd); }
+    .call.rule  { background: var(--rule-bg); border-color: var(--rule-bd); }
+    .call.info  { background: var(--accent-lt); border-color: var(--accent-bd); }
+    .call p { margin-bottom: 8px; max-width: none; }
+    .call p:last-child { margin-bottom: 0; }
+    .call strong { font-weight: 600; }
+
+    /* ── Author order diagram ── */
+    .author-order {
+      display: flex;
+      gap: 0;
+      margin: 20px 0 28px;
+      max-width: 680px;
+      border-radius: 5px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .ao-block {
+      flex: 1;
+      padding: 14px 16px;
+      font-size: 13px;
+      line-height: 1.55;
+      border-right: 1px solid var(--border);
+    }
+    .ao-block:last-child { border-right: none; }
+    .ao-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-t);
+      margin-bottom: 5px;
+    }
+    .ao-desc { color: var(--text-s); font-size: 13px; }
+    .ao-block.ao-first  { background: var(--accent-lt); }
+    .ao-block.ao-middle { background: var(--sidebar-bg); }
+    .ao-block.ao-last   { background: var(--note-bg); }
+
+    /* ── CRediT table ── */
+    .credit-table {
+      width: 100%;
+      max-width: 680px;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      margin: 20px 0 8px;
+    }
+    .credit-table th {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-t);
+      text-align: left;
+      padding: 8px 12px;
+      border-bottom: 2px solid var(--border);
+      background: var(--sidebar-bg);
+    }
+    .credit-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      color: var(--text-p);
+      line-height: 1.55;
+    }
+    .credit-table tr:last-child td { border-bottom: none; }
+    .credit-table tr:hover td { background: var(--accent-lt); }
+    .credit-table td:first-child {
+      font-weight: 500;
+      white-space: nowrap;
+      color: var(--text-p);
+      width: 36%;
+    }
+
+    /* ── Footer ── */
+    footer {
+      margin-left: var(--sidebar-w);
+      max-width: calc(var(--sidebar-w) + 800px);
+      padding: 24px 60px 48px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-t);
+      font-family: var(--font-mono);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer a { color: var(--text-t); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <span class="lab-name">Raredon Lab</span>
+    <span class="sep">/</span>
+    <span class="manual-name">General Manual</span>
+  </header>
+
+  <!-- Sidebar -->
+  <nav class="sidebar" aria-label="Manual navigation">
+    <div class="nav-section-label">General Manual</div>
+    <a href="index.html">Overview &amp; Index</a>
+    <a href="01-lab-mission.html">01 &mdash; Lab Mission &amp; Identity</a>
+    <a href="02-joining-the-lab.html">02 &mdash; Joining the Lab</a>
+    <a href="03-expectations.html">03 &mdash; Expectations by Role</a>
+    <a href="04-authorship.html" class="current-doc">04 &mdash; Authorship Principles</a>
+    <a href="05-first-author.html">05 &mdash; First Author Responsibilities</a>
+    <a href="06-mentorship.html">06 &mdash; Mentorship &amp; Career Development</a>
+    <a href="07-communication.html">07 &mdash; Communication &amp; Conduct</a>
+    <a href="08-safety.html">08 &mdash; General Safety</a>
+    <a href="09-leaving-the-lab.html">09 &mdash; Leaving the Lab</a>
+    <div class="nav-section-label" style="margin-top:16px;">Appendices</div>
+    <a href="appendix-a-meetings.html">Appendix A &mdash; Preparing for Meetings</a>
+
+    <div class="nav-section-label" style="margin-top:28px;">Sibling Manuals</div>
+    <a href="#">Computational Lab Manual</a>
+    <a href="#">Wet Lab Manual</a>
+
+    <div class="nav-section-label" style="margin-top:28px;">On this page</div>
+    <a href="#what-authorship-means" class="active">What Authorship Means</a>
+    <a href="#who-deserves-authorship">Who Deserves Authorship</a>
+    <a href="#authorship-conversations">Authorship Conversations</a>
+    <a href="#author-order">Author Order</a>
+    <a href="#disputes">Disputes</a>
+    <a href="#credit">The CRediT Taxonomy</a>
+  </nav>
+
+  <!-- Main content -->
+  <main>
+    <p class="page-eyebrow">General Manual &mdash; Document 04</p>
+    <h1>Authorship Principles</h1>
+    <p class="page-sub">Who earns authorship, how it is discussed, how it is ordered, and how disputes are resolved.</p>
+    <hr class="page-divider" />
+
+    <!-- Section 1: What Authorship Means -->
+    <section id="what-authorship-means">
+      <h2><span class="sn">01</span> What Authorship Means</h2>
+
+      <p>Authorship reflects real, active, engaged contribution to a piece of work. When authorship is handled well, everyone on the author list feels proud of the work, glad to be on it, and confident that the list is complete and fairly ordered. When it is handled poorly, teams become dysfunctional and professional relationships can be damaged. These outcomes are worth taking seriously.</p>
+
+      <p>Before an author list is finalized, everyone on it should have been given a chance to review it and to voice any concerns. The list should feel right to everyone whose name appears on it.</p>
+
+      <p>Authorship should not be offered or accepted as a courtesy. If someone has not contributed meaningfully to the work, they belong in the acknowledgments, not the author list.</p>
+    </section>
+
+    <!-- Section 2: Who Deserves Authorship -->
+    <section id="who-deserves-authorship">
+      <h2><span class="sn">02</span> Who Deserves Authorship</h2>
+
+      <p>Anyone who has contributed in a meaningful way that influenced the work, or was key to the end product coming to be in its published form, deserves to be considered for authorship.</p>
+
+      <p>A useful practical test: if you have had more than one conversation with someone about your work and their comments have been useful to you, consider offering them authorship. They are free to decline if they feel their contribution was not sufficient; in that case, they should be credited in the acknowledgments instead.</p>
+
+      <p>The line between authorship and acknowledgment is a matter of degree and judgment, and it should be discussed openly. When in doubt, err toward inclusion and let the person decide.</p>
+    </section>
+
+    <!-- Section 3: Authorship Conversations -->
+    <section id="authorship-conversations">
+      <h2><span class="sn">03</span> Authorship Conversations</h2>
+
+      <p>Authorship conversations should begin at the start of a project, so that everyone understands their intended role and can plan their contributions accordingly. These initial conversations do not set things in stone. Projects evolve, people's availability changes, and the relative weight of different contributions shifts over time. It is common and normal for authorship to be revisited.</p>
+
+      <p>Check in with collaborators regularly to make sure that everyone is still prepared to fulfill their intended role, and to reorganize if that is not the case. First authorship in particular carries real responsibilities that must be actively upheld. If those responsibilities cannot be met in a timely way, the conversation about reassignment should happen early, not late. See <a href="05-first-author.html">05 &mdash; First Author Responsibilities</a> for detail on what that standard entails.</p>
+
+      <div class="call info">
+        <strong>Bring things up early and clearly.</strong> Authorship concerns that are raised early can almost always be resolved. Concerns that surface late, after work has been submitted or relationships have frayed, are much harder to address.
+      </div>
+    </section>
+
+    <!-- Section 4: Author Order -->
+    <section id="author-order">
+      <h2><span class="sn">04</span> Author Order</h2>
+
+      <p>Author order follows a conventional structure with three zones, each ordered internally by degree of contribution:</p>
+
+      <div class="author-order">
+        <div class="ao-block ao-first">
+          <div class="ao-label">Beginning</div>
+          <div class="ao-desc">Main contributors, ordered from most to least contribution. First author leads.</div>
+        </div>
+        <div class="ao-block ao-middle">
+          <div class="ao-label">Middle</div>
+          <div class="ao-desc">Helpers and sparse contributors, ordered from most to least contribution.</div>
+        </div>
+        <div class="ao-block ao-last">
+          <div class="ao-label">End</div>
+          <div class="ao-desc">Senior authors, PIs, and those responsible for funding acquisition, ordered from least to most seniority. Corresponding author is typically the PI unless otherwise agreed.</div>
+        </div>
+      </div>
+
+      <p>Co-first or co-senior authorship, indicated by asterisk, is appropriate when two contributors have made contributions of clearly equal weight. The decision to use co-authorship designations rests with the PI.</p>
+    </section>
+
+    <!-- Section 5: Disputes -->
+    <section id="disputes">
+      <h2><span class="sn">05</span> Disputes</h2>
+
+      <p>Authorship disputes happen. When they do, bring the concern to the PI early and clearly. The PI will have a 1:1 conversation with each person involved and then bring everyone together to work toward resolution. The PI has final say over authorship order.</p>
+
+      <p>The goal of any dispute resolution is to have authorship designations and order accurately and fairly represent the work, effort, ideas, and importance of each individual's contributions. The process is not about winning; it is about getting the record right.</p>
+    </section>
+
+    <!-- Section 6: CRediT Taxonomy -->
+    <section id="credit">
+      <h2><span class="sn">06</span> The CRediT Taxonomy</h2>
+
+      <p>The lab uses the <a href="https://credit.niso.org" target="_blank">Contributor Roles Taxonomy (CRediT)</a> to document individual contributions to published work. CRediT provides a standardized vocabulary of 14 contributor roles, making it possible to represent the full range of contributions to a paper clearly and consistently. Many journals now support or require CRediT statements.</p>
+
+      <p>When preparing a manuscript, every author's contributions should be mapped to the relevant roles below. A person may hold multiple roles, and a role may be shared across multiple contributors.</p>
+
+      <table class="credit-table">
+        <thead>
+          <tr>
+            <th>Role</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Conceptualization</td>
+            <td>Ideas; formulation or evolution of overarching research goals and aims.</td>
+          </tr>
+          <tr>
+            <td>Data Curation</td>
+            <td>Management activities to annotate, scrub, and maintain research data for initial use and later reuse.</td>
+          </tr>
+          <tr>
+            <td>Formal Analysis</td>
+            <td>Application of statistical, mathematical, computational, or other formal techniques to analyze study data.</td>
+          </tr>
+          <tr>
+            <td>Funding Acquisition</td>
+            <td>Acquisition of financial support for the project leading to this publication.</td>
+          </tr>
+          <tr>
+            <td>Investigation</td>
+            <td>Conducting a research and investigation process, specifically performing the experiments or data collection.</td>
+          </tr>
+          <tr>
+            <td>Methodology</td>
+            <td>Development or design of methodology; creation of models.</td>
+          </tr>
+          <tr>
+            <td>Project Administration</td>
+            <td>Management and coordination responsibility for the research activity planning and execution.</td>
+          </tr>
+          <tr>
+            <td>Resources</td>
+            <td>Provision of study materials, reagents, materials, patients, laboratory samples, animals, instrumentation, computing resources, or other analysis tools.</td>
+          </tr>
+          <tr>
+            <td>Software</td>
+            <td>Programming, software development; designing computer programs; implementation of the computer code and supporting algorithms.</td>
+          </tr>
+          <tr>
+            <td>Supervision</td>
+            <td>Oversight and leadership responsibility for the research activity planning and execution, including mentorship external to the core team.</td>
+          </tr>
+          <tr>
+            <td>Validation</td>
+            <td>Verification of the overall replication or reproducibility of results and other research outputs.</td>
+          </tr>
+          <tr>
+            <td>Visualization</td>
+            <td>Preparation, creation, or presentation of the published work, specifically data presentation and visualization.</td>
+          </tr>
+          <tr>
+            <td>Writing – Original Draft</td>
+            <td>Preparation, creation, or presentation of the published work, specifically writing the initial draft.</td>
+          </tr>
+          <tr>
+            <td>Writing – Review &amp; Editing</td>
+            <td>Critical review, commentary, or revision of the work, including pre- or post-publication stages.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="margin-top:16px; font-size:13.5px; color:var(--text-s);">Full specification available at <a href="https://credit.niso.org" target="_blank">credit.niso.org</a>.</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <span>Raredon Lab &mdash; General Manual</span>
+    <span>Yale School of Medicine &mdash; Dept. of Anesthesiology</span>
+  </footer>
+
+</body>
+</html>
