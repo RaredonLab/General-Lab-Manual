@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Preparing for Meetings &mdash; Raredon Lab General Manual</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --sidebar-w: 256px;
+      --header-h: 54px;
+      --bg: #FFFFFF;
+      --sidebar-bg: #F6F5F1;
+      --border: #E3E1DC;
+      --text-p: #1A1917;
+      --text-s: #5C5A56;
+      --text-t: #9C9A96;
+      --accent: #1D4ED8;
+      --accent-lt: #EFF6FF;
+      --accent-bd: #BFDBFE;
+      --code-bg: #F6F5F1;
+      --code-bd: #D8D6D0;
+      --note-bg: #F0FDF4;
+      --note-bd: #16A34A;
+      --warn-bg: #FFFBEB;
+      --warn-bd: #D97706;
+      --rule-bg: #FFF1F2;
+      --rule-bd: #E11D48;
+      --font: 'IBM Plex Sans', sans-serif;
+      --font-serif: 'IBM Plex Serif', serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text-p);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* ── Header ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      background: #141210;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      z-index: 100;
+      gap: 16px;
+    }
+    header .lab-name {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      color: #E8E6E0;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+    header .manual-name {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-t);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border: 1px solid #333;
+      border-radius: 3px;
+    }
+    header .sep { color: #444; font-size: 18px; line-height: 1; }
+
+    /* ── Sidebar ── */
+    nav.sidebar {
+      position: fixed;
+      top: var(--header-h);
+      left: 0;
+      width: var(--sidebar-w);
+      height: calc(100vh - var(--header-h));
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      padding: 28px 0 40px;
+      z-index: 90;
+    }
+    .nav-section-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-t);
+      padding: 0 20px 8px;
+      margin-top: 20px;
+    }
+    .nav-section-label:first-child { margin-top: 0; }
+    nav.sidebar a {
+      display: block;
+      padding: 6px 20px;
+      font-size: 13px;
+      color: var(--text-s);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
+    }
+    nav.sidebar a:hover {
+      color: var(--text-p);
+      background: rgba(0,0,0,0.04);
+    }
+    nav.sidebar a.active {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: var(--accent-lt);
+      font-weight: 500;
+    }
+    nav.sidebar a.current-doc {
+      color: var(--text-p);
+      font-weight: 600;
+      border-left-color: var(--border);
+    }
+
+    /* ── Content ── */
+    main {
+      margin-left: var(--sidebar-w);
+      max-width: calc(var(--sidebar-w) + 800px);
+      padding: 52px 60px 100px;
+      padding-top: calc(var(--header-h) + 52px);
+    }
+
+    /* ── Page header ── */
+    .page-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-t);
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.25;
+      color: var(--text-p);
+      margin-bottom: 10px;
+    }
+    .page-sub {
+      font-size: 16px;
+      color: var(--text-s);
+      margin-bottom: 40px;
+      max-width: 620px;
+      line-height: 1.6;
+    }
+    .page-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+
+    /* ── Sections ── */
+    section { margin-bottom: 56px; scroll-margin-top: calc(var(--header-h) + 20px); }
+
+    h2 {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-p);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+    h2 .sn {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--text-t);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    h3 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-s);
+      margin-top: 32px;
+      margin-bottom: 10px;
+    }
+
+    p { margin-bottom: 16px; max-width: 680px; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── Callouts ── */
+    .call {
+      border-left: 3px solid;
+      border-radius: 0 4px 4px 0;
+      padding: 14px 18px;
+      margin: 24px 0;
+      max-width: 680px;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .call.note  { background: var(--note-bg); border-color: var(--note-bd); }
+    .call.warn  { background: var(--warn-bg); border-color: var(--warn-bd); }
+    .call.rule  { background: var(--rule-bg); border-color: var(--rule-bd); }
+    .call.info  { background: var(--accent-lt); border-color: var(--accent-bd); }
+    .call p { margin-bottom: 8px; max-width: none; }
+    .call p:last-child { margin-bottom: 0; }
+    .call strong { font-weight: 600; }
+
+    /* ── Meeting type cards ── */
+    .meeting-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      max-width: 680px;
+      margin: 24px 0;
+    }
+    .meeting-card {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 18px 20px;
+      background: var(--sidebar-bg);
+    }
+    .meeting-card .meeting-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    .meeting-card p {
+      font-size: 13.5px;
+      color: var(--text-s);
+      line-height: 1.6;
+      margin: 0;
+      max-width: none;
+    }
+
+    /* ── Three-part framework ── */
+    .three-part {
+      display: flex;
+      gap: 0;
+      max-width: 680px;
+      margin: 24px 0;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .three-part-item {
+      flex: 1;
+      padding: 18px 20px;
+      border-right: 1px solid var(--border);
+    }
+    .three-part-item:last-child { border-right: none; }
+    .three-part-item .tp-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-t);
+      margin-bottom: 6px;
+    }
+    .three-part-item .tp-val {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-p);
+      line-height: 1.4;
+    }
+
+    /* ── Footer ── */
+    footer {
+      margin-left: var(--sidebar-w);
+      max-width: calc(var(--sidebar-w) + 800px);
+      padding: 24px 60px 48px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-t);
+      font-family: var(--font-mono);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer a { color: var(--text-t); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <span class="lab-name">Raredon Lab</span>
+    <span class="sep">/</span>
+    <span class="manual-name">General Manual</span>
+  </header>
+
+  <!-- Sidebar -->
+  <nav class="sidebar" aria-label="Manual navigation">
+    <div class="nav-section-label">General Manual</div>
+    <a href="index.html">Overview &amp; Index</a>
+    <a href="01-lab-mission.html">01 &mdash; Lab Mission &amp; Identity</a>
+    <a href="02-joining-the-lab.html">02 &mdash; Joining the Lab</a>
+    <a href="03-expectations.html">03 &mdash; Expectations by Role</a>
+    <a href="04-authorship.html">04 &mdash; Authorship Principles</a>
+    <a href="05-first-author.html">05 &mdash; First Author Responsibilities</a>
+    <a href="06-mentorship.html">06 &mdash; Mentorship &amp; Career Development</a>
+    <a href="07-communication.html">07 &mdash; Communication &amp; Conduct</a>
+    <a href="08-safety.html">08 &mdash; General Safety</a>
+    <a href="09-leaving-the-lab.html">09 &mdash; Leaving the Lab</a>
+
+    <div class="nav-section-label" style="margin-top:16px;">Appendices</div>
+    <a href="appendix-a-meetings.html" class="current-doc">Appendix A &mdash; Preparing for Meetings</a>
+
+    <div class="nav-section-label" style="margin-top:28px;">Sibling Manuals</div>
+    <a href="#">Computational Lab Manual</a>
+    <a href="#">Wet Lab Manual</a>
+
+    <div class="nav-section-label" style="margin-top:28px;">On this page</div>
+    <a href="#the-point" class="active">What Meetings Are For</a>
+    <a href="#general-principles">General Principles</a>
+    <a href="#one-on-one">1:1 with the PI</a>
+    <a href="#lab-meeting-presenting">Lab Meeting: Presenting</a>
+    <a href="#lab-meeting-listening">Lab Meeting: Listening</a>
+    <a href="#project-meetings">Project Meetings</a>
+    <a href="#in-the-room">Being in the Room</a>
+  </nav>
+
+  <!-- Main content -->
+  <main>
+    <p class="page-eyebrow">General Manual &mdash; Appendix A</p>
+    <h1>Preparing for Meetings</h1>
+    <p class="page-sub">How to show up well to any meeting in this lab: what to prepare, what to bring, and how to participate so that everyone's time is worthwhile.</p>
+    <hr class="page-divider" />
+
+    <!-- Section 1: What Meetings Are For -->
+    <section id="the-point">
+      <h2><span class="sn">01</span> What Meetings Are For</h2>
+
+      <p>Meetings are opportunities. They are some of the highest-yield time available to you as a scientist: a structured occasion to get feedback on your work, to learn what others are doing, to find connections you would not have found alone, and to be challenged in ways that make your thinking stronger.</p>
+
+      <p>A lab meeting run well is not a series of individual presentations. It is a collective exercise in thinking, and in a well-functioning lab it can be the most stimulating and enjoyable part of the week. Whether that happens depends on how everyone in the room shows up.</p>
+
+      <p>The expectations below apply to all meeting types. Meeting-specific guidance follows.</p>
+    </section>
+
+    <!-- Section 2: General Principles -->
+    <section id="general-principles">
+      <h2><span class="sn">02</span> General Principles</h2>
+
+      <p>Regardless of meeting type, every lab member should arrive prepared to do three things:</p>
+
+      <div class="three-part">
+        <div class="three-part-item">
+          <div class="tp-label">Speak</div>
+          <div class="tp-val">Your own work: past, present, and planned</div>
+        </div>
+        <div class="three-part-item">
+          <div class="tp-label">Ask</div>
+          <div class="tp-val">Specific questions where you need help or input</div>
+        </div>
+        <div class="three-part-item">
+          <div class="tp-label">Contribute</div>
+          <div class="tp-val">Attention, ideas, and feedback on others' work</div>
+        </div>
+      </div>
+
+      <p>You may not always be called on to present. That is not a reason to arrive unprepared. Preparation is not contingent on whether you are scheduled to speak. It is a baseline condition of lab membership.</p>
+
+      <div class="call info">
+        <strong>Questions are the easiest and highest-yield thing to prepare.</strong> Before any meeting, identify at least one concrete question about your own work that you would benefit from bringing to the group. These questions do not need to be resolved in the meeting, but having them ready means that if an opportunity arises, you are ready to use it.
+      </div>
+
+      <h3>Never arrive with nothing</h3>
+      <p>Showing up without a prepared update, without slides for a meeting that calls for them, or with slides you did not make yourself, signals that you have not engaged with your work at the level needed. These meetings exist to support your development. Not preparing for them means the opportunity is wasted, for you and for everyone who came ready to help.</p>
+    </section>
+
+    <!-- Section 3: 1:1 with the PI -->
+    <section id="one-on-one">
+      <h2><span class="sn">03</span> 1:1 with the PI</h2>
+
+      <p>The 1:1 is your meeting. Its purpose is for you to report on your work and your thinking, and to get feedback from the PI. The PI's role in this meeting is to respond to what you bring. If you arrive without a prepared update, the meeting inverts: the PI ends up directing the conversation, telling you what to do, and the opportunity for you to lead your own learning is lost.</p>
+
+      <p>Come with slides. They do not need to be elaborate, but they need to cover three things clearly:</p>
+
+      <div class="three-part">
+        <div class="three-part-item">
+          <div class="tp-label">Past</div>
+          <div class="tp-val">What you did since the last meeting</div>
+        </div>
+        <div class="three-part-item">
+          <div class="tp-label">Present</div>
+          <div class="tp-val">What you are currently working on or wrestling with</div>
+        </div>
+        <div class="three-part-item">
+          <div class="tp-label">Next</div>
+          <div class="tp-val">What you plan to do before the next meeting</div>
+        </div>
+      </div>
+
+      <div class="call rule">
+        <strong>Make your own slides.</strong> 1:1 slides must be made by you, not generated by AI. These slides are a record of your thinking. The PI wants to see how you understand your work, what you notice, what you choose to highlight, and where you are uncertain. An AI-generated summary cannot show any of that. It obscures the very thing the PI needs to see in order to help you.
+      </div>
+
+      <p>Come with at least one specific question. Not a general question about the direction of the project, but a concrete place where you are stuck, uncertain, or trying to decide between options. These are the questions the PI can most usefully help with, and preparing them in advance means you get something concrete out of every meeting.</p>
+
+      <p>The goal of the 1:1 is not to receive instructions. It is to take stock of where you are, sharpen your thinking by explaining it out loud, and use the PI's perspective to help you move forward under your own direction. Pick up the reins. The lab exists to support your exploration, not to direct it.</p>
+    </section>
+
+    <!-- Section 4: Lab Meeting — Presenting -->
+    <section id="lab-meeting-presenting">
+      <h2><span class="sn">04</span> Lab Meeting: When You Are Presenting</h2>
+
+      <p>Being scheduled to present at lab meeting is an opportunity, not an evaluation. You are the person in the room who knows the most about your work. The goal is to share what you have learned, surface the problems you are trying to solve, and use the group's collective knowledge to make progress.</p>
+
+      <p>Treat it accordingly. Come in curious about what others will see that you have missed, not anxious about being judged. In most cases you will be the expert in the room on your specific topic, but others will have knowledge, experience, and perspectives you do not. Find those. Seek out the juicy tidbits that redirect your thinking.</p>
+
+      <h3>Preparation timeline</h3>
+      <p>Begin preparing your slides at least one week before your scheduled presentation. More junior members should share a draft with a more senior lab member before the actual presentation and incorporate their feedback. The goal is to make the time worthwhile for everyone listening. A polished presentation teaches more and receives better feedback than one assembled the night before.</p>
+
+      <h3>Slide rules</h3>
+      <p>Do not use AI to generate your presentation slides. Prepare them yourself. Know every slide well enough to speak to it without reading from it. Do not go over your allotted time: build your presentation to fit the window you have been given, and practice enough to know that it will.</p>
+
+      <h3>What to cover</h3>
+      <p>A lab presentation should orient the audience to the project, walk through recent work and findings, identify key open questions or challenges, and invite the group to help you think. You are not reporting completed work. You are thinking out loud in a room full of people who want to help you do it better.</p>
+
+      <div class="call note">
+        <strong>Lab meeting is not a test.</strong> It is a chance to get feedback, find new leads, and test your ideas against other minds. If it feels like a test, reframe it. The people in the room are on your side.
+      </div>
+    </section>
+
+    <!-- Section 5: Lab Meeting — Listening -->
+    <section id="lab-meeting-listening">
+      <h2><span class="sn">05</span> Lab Meeting: When You Are Not Presenting</h2>
+
+      <p>When someone else is presenting, your job is to help them. That means paying full attention, taking notes, asking questions about anything that is unclear, and offering ideas that might be useful. Think about what the presenter is trying to accomplish and work with them toward it.</p>
+
+      <p>Take notes by hand if possible. It keeps you present and attentive in a way that typing often does not.</p>
+
+      <h3>Ask questions</h3>
+      <p>If something is not clear, ask. If something surprises you, say so. If a claim raises a question in your mind, raise it. You do not need to wait for permission to speak. Do not hold back out of concern that your question is too basic or too far outside your area. Questions from outside a speaker's immediate field are often the most useful, because they surface assumptions the speaker has stopped noticing.</p>
+
+      <p>At the same time, be aware of the room. If you have been speaking for a while, make space for others. The goal is for every person present to feel comfortable contributing, which requires that no single voice dominates.</p>
+
+      <h3>Give positive feedback</h3>
+      <p>It is not always obvious to a presenter what they did well. Pointing it out helps the speaker understand what is working, and helps others in the room recognize it too. Positive feedback is not filler. It is information, and it is often more valuable than it appears. Everyone should offer some form of feedback in every meeting, time permitting.</p>
+
+      <div class="call info">
+        <strong>If you were presenting, how would you want the room to show up?</strong> Give the speaker that. Full attention. Eye contact. Thoughtful engagement. You are on each other's side.
+      </div>
+    </section>
+
+    <!-- Section 6: Project Meetings -->
+    <section id="project-meetings">
+      <h2><span class="sn">06</span> Project Meetings</h2>
+
+      <p>If you have been invited to a project meeting, it is because you have real responsibility to that project. You are expected to be aware of all aspects of the project, coordinated with the other project members, and ready to speak to the full picture of where things stand.</p>
+
+      <p>Project meetings are led by the team, not the PI. The team's job is to update the PI on progress, milestones, and challenges. Work with your teammates before the meeting itself: align on what will be covered, who will present which pieces, and what decisions or input you are seeking. Do not arrive at a project meeting unaware of what is about to be discussed.</p>
+
+      <div class="call warn">
+        <strong>If you arrive at a project meeting feeling out of the loop, that is a signal.</strong> It means coordination broke down before the meeting, not during it. Check in with your teammates earlier, plan together in advance, and make sure that everyone who shares responsibility for the project is fully current before the meeting begins.
+      </div>
+    </section>
+
+    <!-- Section 7: Being in the Room -->
+    <section id="in-the-room">
+      <h2><span class="sn">07</span> Being in the Room</h2>
+
+      <p>In-person meetings have a quality that remote ones cannot fully replicate. Body language, eye contact, and the texture of physical presence carry enormous amounts of information. Use them.</p>
+
+      <h3>Eye contact</h3>
+      <p>Presenters should look at the room while they speak, not at their slides or their notes. The audience should look back. Eye contact is how you know whether the room is with you. Head nods, attentive posture, engaged expressions: these tell the presenter that the material is landing. Their absence tells the presenter something else entirely.</p>
+
+      <h3>When you lose the room</h3>
+      <p>If you are presenting and you feel the room losing the thread, do not push through. Stop and find out what went wrong. Ask directly: what is and is not making sense? The room will have an answer, and asking the question often re-engages everyone at once. Finding the weak spots in a story, in data, in logic, is exactly what lab meetings are for. Let that process happen.</p>
+
+      <h3>What a well-run meeting feels like</h3>
+      <p>In a well-run lab meeting, everyone in the room feels completely comfortable being themselves: offering feedback, asking questions, and thinking out loud in public. It is built by everyone who shows up prepared, attentive, and invested in each other's success.</p>
+
+      <p>If lab meetings start to feel rote or flat, that is information too. Think about what you can bring to change that. What questions could you ask? What have you been thinking about that might connect to someone else's work? What positive feedback have you been holding back? These meetings can be the most stimulating part of the week. That outcome is everyone's responsibility.</p>
+
+      <div class="call note">
+        <strong>This is how we grow as scientists, artists, and engineers.</strong> The lab meeting room is where individual work becomes collective knowledge. Show up ready to give and receive it.
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <span>Raredon Lab &mdash; General Manual</span>
+    <span>Yale School of Medicine &mdash; Dept. of Anesthesiology</span>
+  </footer>
+
+</body>
+</html>
